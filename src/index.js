@@ -4,6 +4,12 @@ import {StatusBar} from 'react-native';
 import Routes from './routes';
 import NavigationService from './services/navigation';
 
+if (__DEV__) {
+  import('./config/ReactotronConfig').then(() =>
+    console.log('Reactotron Configured')
+  );
+}
+
 export default function App() {
   return (
     <>

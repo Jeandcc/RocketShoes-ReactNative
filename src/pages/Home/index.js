@@ -25,7 +25,7 @@ function Product() {
       <ProductPrice>R$ 179,90</ProductPrice>
       <ProductAdd>
         <CartQuantity>
-          <Icon name="shopping-cart" color="#fff" size={16} />
+          <Icon name="add-shopping-cart" color="#fff" size={16} />
           <CartQuantityText>3</CartQuantityText>
         </CartQuantity>
         <CartText>Add</CartText>

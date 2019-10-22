@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
 import {
@@ -18,7 +18,7 @@ const Home = ({navigation}) => (
     </HomeButton>
 
     <Cart onPress={() => navigation.navigate('Cart')}>
-      <Icon name="shopping-cart" size={24} color="#FFF" />
+      <Icon name="shopping-basket" size={24} color="#FFF" />
       <CartQuantity>
         <CartQuantityText>3</CartQuantityText>
       </CartQuantity>

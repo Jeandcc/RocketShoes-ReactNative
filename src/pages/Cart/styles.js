@@ -24,6 +24,8 @@ export const CartItem = styled.View``;
 
 export const ItemInfo = styled.View`
   flex-direction: row;
+  align-items: center;
+  margin-right: 5px;
 `;
 
 export const ItemImage = styled.Image`
@@ -38,6 +40,7 @@ export const ItemTextHolder = styled.View`
   width: 0;
   flex-grow: 1;
   flex: 1;
+  margin-right: 10px;
 `;
 export const ItemName = styled.Text`
   flex-shrink: 1;
@@ -53,13 +56,28 @@ export const ItemPrice = styled.Text`
 export const ItemPricing = styled.View`
   border-radius: 4px;
   background-color: #eee;
-  height: 40px;
+  /* height: 40px; */
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 7px;
 `;
 
-export const ItemQuantityWrapper = styled.View``;
+export const ItemQuantityWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const QuantityInput = styled.TextInput`
+  color: ${colors.primary};
+  background-color: #ddd;
+  border-radius: 4px;
+  margin: auto 10px;
+  padding: 0px 10px;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: bold;
+  text-align: center;
+`;
 
 export const ItemFinalPrice = styled.Text`
   font-weight: 700;

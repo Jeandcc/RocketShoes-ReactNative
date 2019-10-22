@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Colors from '../../styles/colors';
+
 import {
   Container,
   CartContainer,
@@ -13,6 +16,7 @@ import {
   ItemPricing,
   ItemFinalPrice,
   ItemQuantityWrapper,
+  QuantityInput,
   CartFinalPrice,
   TotalPrice,
   TotalText,
@@ -52,9 +56,14 @@ function Product({product}) {
           <ItemName>{product.Name}</ItemName>
           <ItemPrice>{product.Price}</ItemPrice>
         </ItemTextHolder>
+        <Icon name="add-shopping-cart" color={Colors.primary} size={18} />
       </ItemInfo>
       <ItemPricing>
-        <ItemQuantityWrapper />
+        <ItemQuantityWrapper>
+          <Icon name="remove-circle-outline" color={Colors.primary} size={18} />
+          <QuantityInput value="3" />
+          <Icon name="add-circle-outline" color={Colors.primary} size={18} />
+        </ItemQuantityWrapper>
         <ItemFinalPrice>R$539,70</ItemFinalPrice>
       </ItemPricing>
     </CartItem>

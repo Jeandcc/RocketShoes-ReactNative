@@ -5,29 +5,36 @@ import colors from '../../styles/colors';
 export const Container = styled.View`
   margin-top: 20px;
   margin-left: 20px;
-  flex: 1;
+  /*   flex: 1; */
   border-color: #eee;
   align-content: center;
   font-family: 'Roboto';
 `;
 
-export const ProductsList = styled.ScrollView`
+export const ProductsList = styled.ScrollView.attrs(() => ({
+  contentContainerStyle: {
+    flexGrow: 1,
+    alignItems: 'stretch',
+  },
+}))`
   flex-direction: row;
-  height: 200px;
 `;
 
 export const ProductWrapper = styled.View`
   background-color: #fff;
-  height: 358px;
+  min-height: 358px;
   width: 220px;
   border-radius: 4px;
   margin-right: 15px;
   padding: 10px;
+  flex-shrink: 1;
 `;
 
 export const ProductImage = styled.Image`
-  width: 100%;
+  height: 200px;
+  width: 200px;
 `;
+
 export const ProductText = styled.Text`
   font-size: 16px;
   line-height: 21px;
@@ -48,6 +55,7 @@ export const ProductAdd = styled(RectButton)`
   color: white;
   justify-content: space-between;
   border-radius: 4px;
+  margin-top: auto;
 `;
 export const CartQuantity = styled.View`
   padding: 13px 12px;

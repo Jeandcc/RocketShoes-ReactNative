@@ -1,6 +1,7 @@
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import serverContent from '../../../store';
+import {formatPrice} from '../../util/format';
 
 import {
   Container,
@@ -15,34 +16,41 @@ import {
   CartText,
 } from './styles';
 
-const tennis = require('../../assets/tenis1.png');
-
-function Product() {
-  return (
-    <ProductWrapper>
-      <ProductImage source={tennis} />
-      <ProductText>Tênis de Caminhada Leve Confortável</ProductText>
-      <ProductPrice>R$ 179,90</ProductPrice>
-      <ProductAdd>
-        <CartQuantity>
-          <Icon name="add-shopping-cart" color="#fff" size={16} />
-          <CartQuantityText>3</CartQuantityText>
-        </CartQuantity>
-        <CartText>Add</CartText>
-      </ProductAdd>
-    </ProductWrapper>
-  );
-}
-
 export default function Home() {
+  function Product({product}) {
+    return (
+      <ProductWrapper>
+        <ProductImage source={{uri: product.image}} />
+        <ProductText>{product.title}</ProductText>
+        <ProductPrice>{product.priceFormatted}</ProductPrice>
+        <ProductAdd>
+          <CartQuantity>
+            <Icon name="add-shopping-cart" color="#fff" size={16} />
+            <CartQuantityText>3</CartQuantityText>
+          </CartQuantity>
+          <CartText>Add</CartText>
+        </ProductAdd>
+      </ProductWrapper>
+    );
+  }
+  // eslint-disable-next-line no-unused-vars
+  const [productsList, editProducts] = useState(serverContent.products);
+
+  const listProducts = productsList.map(product => (
+    <Product product={product} key={product.id} />
+  ));
+
+  useEffect(() => {
+    const formattedProducts = productsList.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+    }));
+    editProducts(formattedProducts);
+  }, []);
+
   return (
     <Container>
-      <ProductsList horizontal>
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-      </ProductsList>
+      <ProductsList horizontal>{listProducts}</ProductsList>
     </Container>
   );
 }

@@ -89,7 +89,7 @@ export default function Cart() {
                     />
                   </UpdateAmountButton>
                 </ItemQuantityWrapper>
-                <ItemFinalPrice>R$539,70</ItemFinalPrice>
+                <ItemFinalPrice>{product.subtotal}</ItemFinalPrice>
               </ItemPricing>
             </CartItem>
           ))}

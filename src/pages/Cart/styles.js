@@ -67,6 +67,8 @@ export const ItemQuantityWrapper = styled.View`
   align-items: center;
 `;
 
+export const UpdateAmountButton = styled(RectButton)``;
+
 export const QuantityInput = styled.TextInput`
   color: ${colors.primary};
   background-color: #ddd;

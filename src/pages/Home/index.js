@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import serverContent from '../../../store';
 import {formatPrice} from '../../util/format';
+import api from '../../services/api';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -17,51 +20,38 @@ import {
 } from './styles';
 
 export default function Home() {
-  const [productsList, editProducts] = useState(serverContent.products);
-  const [cartItems, editCart] = useState([]);
-  const [addingProduct, editButton] = useState(false);
+  const [products, setProducts] = useState([]);
+  const amount = useSelector(state =>
+    state.cart.reduce((sumAmount, product) => {
+      sumAmount[product.id] = product.amount;
 
-  const listProducts = productsList.map(product => (
-    <Product product={product} key={product.id} />
-  ));
+      return sumAmount;
+    }, {})
+  );
+  const dispatch = useDispatch();
 
-  function addToCart(productId) {
-    editButton(true);
-    function isOnCart(object) {
-      return object.product === productId;
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get('products');
+
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price),
+      }));
+
+      setProducts(data);
     }
-    const isPresent = cartItems.findIndex(isOnCart);
-    console.tron(isPresent);
 
-    if (isPresent !== -1) {
-      const cartContent = [...cartItems];
-      cartContent[isPresent].amount += 1;
-      editCart(cartContent);
-      const addedProducts = [...productsList];
-      addedProducts[productId - 1].amountOnCart += 1;
-      editProducts(addedProducts);
-      console.tron(cartItems, addedProducts);
-    } else {
-      const cartContent = [...cartItems, {product: productId, amount: 1}];
-      editCart(cartContent);
-      const addedProducts = [...productsList];
-      addedProducts[productId - 1].amountOnCart = 1;
-      editProducts(addedProducts);
-      console.tron(cartItems, addedProducts);
-    }
+    loadProducts();
+  }, []);
+
+  function handleAddProduct(id) {
+    dispatch(CartActions.addToCartRequest(id));
   }
 
-  useEffect(() => {
-    const formattedProducts = productsList.map(product => ({
-      ...product,
-      priceFormatted: formatPrice(product.price),
-    }));
-    editProducts(formattedProducts);
-  }, [productsList]);
-
-  useEffect(() => {
-    editButton(false);
-  }, [cartItems]);
+  const listProducts = products.map(product => (
+    <Product product={product} key={product.id} />
+  ));
 
   function Product({product}) {
     return (
@@ -69,12 +59,10 @@ export default function Home() {
         <ProductImage source={{uri: product.image}} />
         <ProductText>{product.title}</ProductText>
         <ProductPrice>{product.priceFormatted}</ProductPrice>
-        <ProductAdd
-          disabled={addingProduct}
-          onPress={() => addToCart(product.id)}>
+        <ProductAdd onPress={() => handleAddProduct(product.id)}>
           <CartQuantity>
             <Icon name="add-shopping-cart" color="#fff" size={16} />
-            <CartQuantityText>{product.amountOnCart || '0'}</CartQuantityText>
+            <CartQuantityText>{amount[product.id] || 0}</CartQuantityText>
           </CartQuantity>
           <CartText>Add</CartText>
         </ProductAdd>

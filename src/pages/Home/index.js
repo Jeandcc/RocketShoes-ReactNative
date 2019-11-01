@@ -31,7 +31,7 @@ export default function Home() {
       return object.product === productId;
     }
     const isPresent = cartItems.findIndex(isOnCart);
-    console.log(isPresent);
+    console.tron(isPresent);
 
     if (isPresent !== -1) {
       const cartContent = [...cartItems];
@@ -40,14 +40,14 @@ export default function Home() {
       const addedProducts = [...productsList];
       addedProducts[productId - 1].amountOnCart += 1;
       editProducts(addedProducts);
-      console.log(cartItems, addedProducts);
+      console.tron(cartItems, addedProducts);
     } else {
       const cartContent = [...cartItems, {product: productId, amount: 1}];
       editCart(cartContent);
       const addedProducts = [...productsList];
       addedProducts[productId - 1].amountOnCart = 1;
       editProducts(addedProducts);
-      console.log(cartItems, addedProducts);
+      console.tron(cartItems, addedProducts);
     }
   }
 
@@ -57,7 +57,7 @@ export default function Home() {
       priceFormatted: formatPrice(product.price),
     }));
     editProducts(formattedProducts);
-  }, []);
+  }, [productsList]);
 
   useEffect(() => {
     editButton(false);

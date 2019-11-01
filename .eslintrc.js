@@ -30,6 +30,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/static-property-placement': 'off',
     'react/prop-types': 'off',
+    'no-param-reassign': 'off',
     'no-console': ['error', {allow: ['tron']}],
   },
 };

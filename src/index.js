@@ -6,6 +6,7 @@ import NavigationService from './services/navigation';
 
 if (__DEV__) {
   import('./config/ReactotronConfig').then(() =>
+    // eslint-disable-next-line no-console
     console.log('Reactotron Configured')
   );
 }
